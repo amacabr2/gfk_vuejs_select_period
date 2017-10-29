@@ -44,10 +44,24 @@
 
 .rangepicker_day {
   width: 14%;
-  text-align: center;
-  justify-content: space-around;
+  margin-bottom: 2px;
 }
 
 .rangepicker_out {
   opacity: 0.3;
+}
+
+.rangepicker_range {
+  background-color: rgba(57,148,170,0.98);
+  color: #ffffff;
+}
+
+.rangerpicker_range_start {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.rangerpicker_range_end {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
 }

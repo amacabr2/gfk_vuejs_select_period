@@ -17,27 +17,41 @@
 </template>
 
 <script>
-    import Month from '../entity/Month'
+    import Month from "../entity/Month"
+    import Ranges from "../entity/Ranges";
 
     export default {
+        props: {
+            year: Number,
+            value: Array
+        },
+
         data() {
             return {
                 months: [],
-                days: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']
+                days: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+                ranges: []
             }
         },
 
         mounted() {
+            this.ranges = Ranges.fromTimestamps(this.value)
             this.months = Month.createMonthForYear(this.year)
-        },
-
-        props: {
-            year: Number
         },
 
         methods: {
             classForDay(day, month) {
                 let classes = []
+                let range = this.ranges.contains(day)
+                if (range !== null) {
+                    classes.push('rangepicker_range')
+                    if (range.isStart(day)) {
+                        classes.push('rangerpicker_range_start')
+                    }
+                    if (range.isEnd(day)) {
+                        classes.push('rangerpicker_range_end')
+                    }
+                }
                 if (!month.contains(day)) {
                     classes.push('rangepicker_out')
                 }
