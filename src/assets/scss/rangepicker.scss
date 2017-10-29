@@ -1,3 +1,8 @@
+$green: #00c6ae;
+$blue: #455399;
+$white: #ffffff;
+$grey: #a6a6a6;
+
 .rangepicker * {
   box-sizing: border-box;
 }
@@ -9,16 +14,16 @@
 
 .rangepicker_month {
   width: 25%;
-  background-color: #ffffff;
-  border: 1px solid #a6a6a6;
+  background-color: $white;
+  border: 1px solid $grey;
 }
 
 .rangepicker_monthtitle {
   height: 64px;
   line-height: 64px;
   text-align: center;
-  background-color: #455399;
-  color: #ffffff;
+  background-color: $blue;
+  color: $white;
   text-transform: uppercase;
   font-weight: 700;
 }
@@ -36,6 +41,7 @@
 }
 
 .rangepicker_numbers {
+  user-select: none;
   display: flex;
   flex-wrap: wrap;
   color: #2b2e49;
@@ -52,16 +58,21 @@
 }
 
 .rangepicker_range {
-  background-color: rgba(57,148,170,0.98);
-  color: #ffffff;
+  background-color: $green;
+  color: $white;
 }
 
-.rangerpicker_range_start {
+.rangepicker_newrange {
+  background-color: $blue;
+  color: $white
+}
+
+.rangepicker_range_start {
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
 }
 
-.rangerpicker_range_end {
+.rangepicker_range_end {
   border-top-right-radius: 50%;
   border-bottom-right-radius: 50%;
 }

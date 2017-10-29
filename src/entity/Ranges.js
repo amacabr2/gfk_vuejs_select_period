@@ -12,11 +12,21 @@ export default class Ranges {
 
     contains(date) {
         for (let k in this.ranges) {
-            if (date.getTime() >= this.ranges[k].getStart().getTime() && date.getTime() <= this.ranges[k].getEnd().getTime()) {
+            if (this.ranges[k].contains(date)) {
                 return this.ranges[k]
             }
         }
         return null
+    }
+
+    addRange(range) {
+        for (let k in this.ranges) {
+            if (this.ranges[k].intersect(range)) {
+                this.ranges[k].merge(range)
+                return
+            }
+        }
+        this.ranges.push(range)
     }
 
     static fromTimestamps(ranges) {
