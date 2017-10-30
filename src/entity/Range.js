@@ -39,8 +39,15 @@ export default class Range {
         return date.toDateString() === this.end.toDateString()
     }
 
-    contains(date) {
-        return date.getTime() >= this.start.getTime() && date.getTime() <= this.end.getTime()
+    contains(range) {
+        if (range instanceof Date) {
+            let date = range
+            return date.getTime() >= this.start.getTime() && date.getTime() <= this.end.getTime()
+        } else if (range instanceof Range) {
+            return range.getStart().getTime() > this.start.getTime() && range.getEnd().getTime() < this.end.getTime()
+        } else {
+            throw new Error('Type inconnu')
+        }
     }
 
     intersect(range) {

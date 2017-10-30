@@ -1,6 +1,10 @@
 <template>
     <div id="app">
-        <calendar-picker :year="2017" v-model="ranges"/>
+        {{ ranges }}
+        <button @click="pickerShow">Afficher le calendrier</button>
+        <div class="main" v-if="isPickerVisible">
+            <calendar-picker :year="2017" v-model="ranges" @cancel="pickerHide" @submit="pickerHide"/>
+        </div>
     </div>
 </template>
 
@@ -9,8 +13,10 @@
 
     export default {
         name: 'app',
+
         data () {
           return {
+              isPickerVisible: false,
               ranges: [
                   [1483484400000, 1485555500000],
                   [1486162800000, 1486162800000],
@@ -21,17 +27,21 @@
               ]
           }
         },
+
         components: {
             CalendarPicker
+        },
+
+        methods: {
+            pickerShow() {
+                this.isPickerVisible = true
+            },
+
+            pickerHide() {
+                this.isPickerVisible = false
+            }
         }
     }
 </script>
 
-<style>
-    #app {
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-    }
-</style>
+<style src="./assets/scss/app.scss"></style>

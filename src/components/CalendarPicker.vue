@@ -20,8 +20,11 @@
                 </div>
             </div>
         </div>
+        <div class="rangepicker_action">
+            <button class="rangepicker_cancel" @click="onCancel">Annuler</button>
+            <button class="rangepicker_ok" @click="onSubmit">Valider</button>
+        </div>
     </div>
-
 </template>
 
 <script>
@@ -138,6 +141,15 @@
                 if (range) {
                     this.ranges.removeRange(range)
                 }
+            },
+
+            onCancel() {
+                this.$emit('cancel')
+            },
+
+            onSubmit() {
+                this.$emit('input', this.ranges.toTimestamp())
+                this.$emit('submit')
             }
         }
     }
