@@ -11,6 +11,7 @@
                 <div class="rangepicker_day"
                      @mousedown="startDrag(day)"
                      @mouseover="overDay(day)"
+                     @dblclick="removeRange(day)"
                      v-for="day in month.getDays()"
                      :class="classForDay(day, month, newRange)">
                     {{ day.getDate() }}
@@ -21,7 +22,6 @@
 </template>
 
 <script>
-    //58.03
     import Month from "../entity/Month"
     import Ranges from "../entity/Ranges";
     import Range from "../entity/Range";
@@ -113,6 +113,13 @@
                     this.ranges.addRange(this.newRange)
                 }
                 this.newRange = null;
+            },
+
+            removeRange(day) {
+                let range = this.ranges.contains(day)
+                if (range) {
+                    this.ranges.removeRange(range)
+                }
             }
         }
     }

@@ -29,6 +29,10 @@ export default class Ranges {
         this.ranges.push(range)
     }
 
+    removeRange(range) {
+        this.ranges = this.ranges.filter(r => r !== range)
+    }
+
     static fromTimestamps(ranges) {
         return new Ranges(ranges.map(range => {
             return new Range(new Date(range[0]), new Date(range[1]))
