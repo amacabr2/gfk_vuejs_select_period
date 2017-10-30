@@ -1,24 +1,27 @@
 <template>
-    <div class="rangepicker">
-        <div class="rangepicker_month" v-for="month in months">
-            <div class="rangepicker_monthtitle">
-                {{ month.getName() }}
-            </div>
-            <div class="rangepicker_days">
-                <div v-for="day in days">{{ day }}</div>
-            </div>
-            <div class="rangepicker_numbers">
-                <div class="rangepicker_day"
-                     @mousedown="startDrag(day)"
-                     @mouseover="overDay(day)"
-                     @dblclick="removeRange(day)"
-                     v-for="day in month.getDays()"
-                     :class="classForDay(day, month, newRange)">
-                    {{ day.getDate() }}
+    <div>
+        <div class="rangepicker">
+            <div class="rangepicker_month" v-for="month in months">
+                <div class="rangepicker_monthtitle">
+                    {{ month.getName() }}
+                </div>
+                <div class="rangepicker_days">
+                    <div v-for="day in days">{{ day }}</div>
+                </div>
+                <div class="rangepicker_numbers">
+                    <div class="rangepicker_day"
+                         @mousedown="startDrag(day)"
+                         @mouseover="overDay(day)"
+                         @dblclick="removeRange(day)"
+                         v-for="day in month.getDays()"
+                         :class="classForDay(day, month, newRange)">
+                        {{ day.getDate() }}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -88,8 +91,23 @@
             },
 
             startDrag(day) {
-                this.startDate = day
-                this.newRange = new Range(day, day)
+                let range = this.ranges.contains(day)
+                if (range) {
+                    if (range.isStart(day)) {
+                        this.newRange = range
+                        this.ranges.removeRange(range)
+                        this.startDate = range.getEnd()
+                        this.cursor = 0
+                    } else if (range.isEnd(day)) {
+                        this.newRange = range
+                        this.ranges.removeRange(range)
+                        this.startDate = range.getStart()
+                        this.cursor = 1
+                    }
+                } else {
+                    this.startDate = day
+                    this.newRange = new Range(day, day)
+                }
             },
 
             overDay(day) {
